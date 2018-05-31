@@ -1,0 +1,6 @@
+db: test.db
+ttl: 30s
+services: 
+  ipstack:
+    url: <url>
+    token: <token>
