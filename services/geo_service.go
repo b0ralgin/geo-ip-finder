@@ -11,6 +11,10 @@ type GeoIpService struct {
 	services []GeoIpGetter
 }
 
+type MakeRequester interface {
+	MakeRequest(ip string) (string, error)
+}
+
 type GeoIpGetter interface {
 	CanAcceptRequest() bool
 	GetCountryByIp(ip string) (string, error)

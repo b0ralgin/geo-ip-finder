@@ -12,10 +12,10 @@ import (
 type GeoIpController struct {
 	db           cache.Cache
 	cacheTimeout time.Duration
-	geoIpService *services.GeoIpService
+	geoIpService services.MakeRequester
 }
 
-func NewGeoController(db cache.Cache, service *services.GeoIpService, timeout time.Duration) *GeoIpController {
+func NewGeoController(db cache.Cache, service services.MakeRequester, timeout time.Duration) *GeoIpController {
 	return &GeoIpController{
 		db:           db,
 		geoIpService: service,
