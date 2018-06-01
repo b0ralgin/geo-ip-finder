@@ -22,11 +22,10 @@ func (n *nekudoResponse) Decode(body io.Reader) error {
 }
 
 func InitNekudoService(url string, limit uint16) *Nekudo {
-	nekudo := &Nekudo{
+	return &Nekudo{
 		Service: InitService(make(chan bool, limit)),
 		url:     url,
 	}
-	return nekudo
 }
 
 func (n *Nekudo) GetCountryByIp(ip string) (string, error) {

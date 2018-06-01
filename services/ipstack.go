@@ -21,12 +21,11 @@ func (i *ipstackResponse) Decode(body io.Reader) error {
 }
 
 func InitIpstack(api, token string, limit uint16) *Ipstack {
-	ipstack := &Ipstack{
+	return &Ipstack{
 		Service: InitService(make(chan bool, limit)),
 		api:     api,
 		token:   token,
 	}
-	return ipstack
 }
 
 func (i *Ipstack) getReqestUrl(ip string) (string, error) {
