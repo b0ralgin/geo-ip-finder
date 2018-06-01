@@ -2,5 +2,6 @@ db: test.db
 ttl: 30s
 services: 
   ipstack:
-    url: <url>
-    token: <token>
+    url: http://api.ipstack.com/
+    token: 3921d2e6bdc77da0f1f3963259dd7e34
+    limit: 1

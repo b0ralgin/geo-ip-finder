@@ -8,7 +8,7 @@ import (
 )
 
 type Config struct {
-	Db       string                    `yaml:"db"`
+	DB       string                    `yaml:"db"`
 	TTL      time.Duration             `yaml:"ttl"`
 	Services map[string]GeoServicesCfg `yaml:"services"`
 }
@@ -16,7 +16,7 @@ type Config struct {
 type GeoServicesCfg struct {
 	URL   string `yaml:"url"`
 	Token string `yaml:"token"`
-	Limit int64  `yaml:"limit"`
+	Limit uint16 `yaml:"limit"`
 }
 
 func LoadCfg(fileName string) (*Config, error) {

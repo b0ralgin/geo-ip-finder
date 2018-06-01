@@ -20,8 +20,11 @@ func NewGeoController(db *bolt.DB, service *services.GeoIpService) *GeoIpControl
 	}
 }
 
-func (g *GeoIpController) GetIp(c echo.Context) error {
+func (g *GeoIpController) GetCountryByIp(c echo.Context) error {
 	ip := c.RealIP()
-	c.String(http.StatusOK, ip)
-	return nil
+	res, err := g.geoIpService.MakeRequest(ip)
+	if err != nil {
+		return c.String(http.StatusBadGateway, err.Error())
+	}
+	return c.String(http.StatusOK, res)
 }
