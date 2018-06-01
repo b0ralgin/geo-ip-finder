@@ -5,3 +5,6 @@ services:
     url: http://api.ipstack.com/
     token: 3921d2e6bdc77da0f1f3963259dd7e34
     limit: 1
+  nekudo:
+    url: http://geoip.nekudo.com/api/%s
+    limit: 1
