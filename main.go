@@ -4,10 +4,10 @@ import (
 	"flag"
 	"log"
 
+	"github.com/astaxie/beego/cache"
 	"github.com/b0ralgin/geo-ip-finder/config"
 	"github.com/b0ralgin/geo-ip-finder/controllers"
 	"github.com/b0ralgin/geo-ip-finder/services"
-	"github.com/boltdb/bolt"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
