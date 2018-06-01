@@ -24,16 +24,16 @@ func main() {
 	if err != nil {
 		log.Fatal("cannot parse config file:", err)
 	}
-	db, err := bolt.Open(config.Db, 0600, nil)
+	db, err := bolt.Open(config.DB, 0600, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.Close()
-	geoService := services.NewGeoIpService()
+	geoService := services.NewGeoIpService(config.Services)
 	geoController := controllers.NewGeoController(db, geoService)
 	e.Use(middleware.Logger())
 
-	e.GET("/", geoController.GetIp)
+	e.GET("/", geoController.GetCountryByIp)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
