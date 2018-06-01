@@ -1,33 +1,32 @@
 package services
 
 import (
+	"encoding/json"
+	"io"
 	"log"
 	"net/url"
-	"time"
 )
 
 type Ipstack struct {
+	*Service
 	api, token string
-	limiter    chan bool
+}
+
+type ipstackResponse struct {
+	CountryName string `json:"country_name"`
+}
+
+func (i *ipstackResponse) Decode(body io.Reader) error {
+	return json.NewDecoder(body).Decode(i)
 }
 
 func InitIpstack(api, token string, limit uint16) *Ipstack {
 	ipstack := &Ipstack{
+		Service: InitService(make(chan bool, limit)),
 		api:     api,
 		token:   token,
-		limiter: make(chan bool, limit),
 	}
-	go ipstack.setupLimiter()
 	return ipstack
-}
-
-func (i *Ipstack) setupLimiter() {
-	for {
-		select {
-		case <-i.limiter:
-			time.Sleep(1 * time.Minute)
-		}
-	}
 }
 
 func (i *Ipstack) getReqestUrl(ip string) (string, error) {
@@ -37,7 +36,7 @@ func (i *Ipstack) getReqestUrl(ip string) (string, error) {
 	}
 
 	queryString := u.Query()
-	queryString.Set("token", i.token)
+	queryString.Set("access_key", i.token)
 	u.RawQuery = queryString.Encode()
 
 	apiURL, err := url.Parse(i.api)
@@ -49,15 +48,11 @@ func (i *Ipstack) getReqestUrl(ip string) (string, error) {
 }
 
 func (i *Ipstack) GetCountryByIp(ip string) (string, error) {
-	log.Println(i.getReqestUrl(ip))
-	return ip, nil
-}
-
-func (i *Ipstack) CanAcceptRequest() bool {
-	select {
-	case i.limiter <- true:
-		return true
-	default:
-		return false
+	url, err := i.getReqestUrl(ip)
+	if err != nil {
+		return "", err
 	}
+	res := ipstackResponse{}
+	err = i.DoGetRequest(url, &res)
+	return res.CountryName, err
 }
