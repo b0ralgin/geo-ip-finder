@@ -11,11 +11,11 @@ type Ipstack struct {
 	limiter    chan bool
 }
 
-func InitIpstack(api, token string, limit int64) *Ipstack {
+func InitIpstack(api, token string, limit uint16) *Ipstack {
 	ipstack := &Ipstack{
 		api:     api,
 		token:   token,
-		limiter: make(chan bool, int64(limit)),
+		limiter: make(chan bool, limit),
 	}
 	go ipstack.setupLimiter()
 	return ipstack
