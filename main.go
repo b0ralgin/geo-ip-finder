@@ -34,6 +34,7 @@ func main() {
 	e.Use(middleware.Logger())
 
 	e.GET("/", geoController.GetCountryByIp)
+	e.GET("/:ip", geoController.GetCountryByIp)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
