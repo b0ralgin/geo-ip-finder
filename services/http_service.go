@@ -10,6 +10,11 @@ type Service struct {
 	client  *http.Client
 }
 
+type IService interface {
+	DoGetRequest(url string, decoder Decoder) error
+	CanAcceptRequest() bool
+}
+
 func InitService(limiter chan bool) *Service {
 	service := &Service{
 		limiter: limiter,
