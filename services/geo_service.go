@@ -11,8 +11,8 @@ type GeoIpService struct {
 	services []GeoIpGetter
 }
 
-type MakeRequester interface {
-	MakeRequest(ip string) (string, error)
+type Requester interface {
+	Request(ip string) (string, error)
 }
 
 type GeoIpGetter interface {
@@ -37,7 +37,7 @@ func NewGeoIpService(services map[string]config.GeoServicesCfg) *GeoIpService {
 	}
 }
 
-func (s *GeoIpService) MakeRequest(ip string) (string, error) {
+func (s *GeoIpService) Request(ip string) (string, error) {
 	for _, service := range s.services {
 		if service.CanAcceptRequest() {
 			return service.GetCountryByIp(ip)

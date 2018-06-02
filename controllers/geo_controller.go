@@ -12,10 +12,10 @@ import (
 type GeoIpController struct {
 	db           cache.Cache
 	cacheTimeout time.Duration
-	geoIpService services.MakeRequester
+	geoIpService services.Requester
 }
 
-func NewGeoController(db cache.Cache, service services.MakeRequester, timeout time.Duration) *GeoIpController {
+func NewGeoController(db cache.Cache, service services.Requester, timeout time.Duration) *GeoIpController {
 	return &GeoIpController{
 		db:           db,
 		geoIpService: service,
@@ -31,7 +31,7 @@ func (g *GeoIpController) GetCountryByIp(c echo.Context) error {
 	if g.db.IsExist(ip) {
 		return c.String(http.StatusOK, g.db.Get(ip).(string))
 	}
-	res, err := g.geoIpService.MakeRequest(ip)
+	res, err := g.geoIpService.Request(ip)
 	if err != nil {
 		return c.String(http.StatusBadGateway, err.Error())
 	}
