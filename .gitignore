@@ -1,3 +1,5 @@
 debug
 *.db
 .vscode/*
+vendor/*
+glide.lock
