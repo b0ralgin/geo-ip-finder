@@ -1,0 +1,16 @@
+package: github.com/b0ralgin/geo-ip-finder
+import:
+- package: github.com/astaxie/beego
+  version: ~1.9.2
+  subpackages:
+  - cache
+- package: github.com/labstack/echo
+  version: ~3.3.5
+  subpackages:
+  - middleware
+- package: gopkg.in/yaml.v2
+  version: ~2.2.1
+- package: github.com/stretchr/testify
+  version: ~1.2.1
+  subpackages:
+  - assert
