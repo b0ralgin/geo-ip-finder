@@ -1,0 +1,32 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: geoipfinder
+  name: geoipfinder
+  namespace: geoipfinder
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: patient-service
+    spec:
+      containers:
+      - name: geoipfinder
+        image: b0ralgin/geoipfinder
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 1323
+        resources:
+         requests:
+          cpu: "1"
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+status: {}
