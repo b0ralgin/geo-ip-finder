@@ -12,7 +12,7 @@ go build -o service
 
 ### Запуск сервиса 
 ```bash
-./service -config config.yaml
+./service -config config/config.yaml
 ```
 -config - расположение конфигурационного файла, по умолчанию config/config.yaml
 
