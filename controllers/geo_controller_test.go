@@ -18,7 +18,7 @@ type service struct {
 	service map[string]string
 }
 
-func (s service) MakeRequest(ip string) (string, error) {
+func (s service) Request(ip string) (string, error) {
 	return s.service[ip], nil
 }
 
@@ -26,7 +26,7 @@ type failedService struct {
 	service map[string]string
 }
 
-func (s failedService) MakeRequest(ip string) (string, error) {
+func (s failedService) Request(ip string) (string, error) {
 	return "", errors.New("Error")
 }
 
