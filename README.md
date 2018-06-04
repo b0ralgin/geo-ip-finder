@@ -17,3 +17,9 @@ go build -o service
 -config - расположение конфигурационного файла, по умолчанию config/config.yaml
 
 
+Примеры запросов
+
+GET http://localhost:1323/
+
+GET http://localhost:1323/37.139.23.182
+
